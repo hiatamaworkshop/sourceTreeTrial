@@ -1,0 +1,52 @@
+<html>
+  <head lang="ja">
+    <meta charset="UTF-8">
+    <title>ログイン</title>
+    
+  </head>
+  <body>
+    <form action="" method="post">
+      <div>
+        <label>ユーザID：</label>
+        <input type="text" name="username">
+      </div>
+      <div>
+        <label>パスワード：</label>
+        <input type="password" name="password">
+      </div>
+      <div>
+        <input type="hidden" name="token" value="testToken">
+        <input type="submit" value="Submit">
+      </div>
+    </form>
+
+    <input type="submit" value="postWithFetch" onclick="myPostMethod()">
+
+    <script>
+      console.log("Header test from web page");
+
+      const obj = {
+        username: "world",
+        password: "himitsu"        
+      };
+
+      const method = "POST";      
+      const body = JSON.stringify(obj);
+      const headers = {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'Version': 1.1,
+        'Authorization': 'Bearer + testToken'
+      };
+
+      async function myPostMethod(){
+        console.log("Posting through Fetch");
+        await fetch("./login", {method, headers, body})
+        .then((res)=> console.log(res.url))
+        //.then((res)=> window.location.href = res.url) //サーバーから指定のＵＲＬが入っている
+        .catch((err)=> console.log(err));
+      }
+        
+    </script>
+  </body>
+</html>
